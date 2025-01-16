@@ -67,12 +67,6 @@ export default {
   ]
 };
 
-## Collaboration and Feedback
-
-- Group discussions
-- Peer review
-- Version control
-
 ## Conclusion
 
 The technical plan outlined in this document provides a solid foundation for building a marketplace. By following this plan, you can ensure that your marketplace is scalable, secure, and provides a seamless user experience.
