@@ -9,15 +9,15 @@ The primary goal of Day 2 is to transition from the business-oriented planning o
 System Architecture
 Diagram
 
-graph LR
     Frontend[Frontend (Next.js)] --> Sanity CMS[Sanity CMS]
+
     Sanity CMS --> Third-party APIs[Third-party APIs]
 
-Chart
 
-graph TD
     User[User] --> Frontend[Frontend (React/Next.js)]
+
     Frontend --> Sanity CMS[Sanity CMS (Database)]
+
     Sanity CMS --> Third-party APIs[Third-party APIs (e.g., Payments, Shipping)]
 
 ## Key Workflows
