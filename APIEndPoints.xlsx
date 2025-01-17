@@ -1,5 +1,0 @@
-
-API Endpoints
-Endpoint	Method	Purpose	Response Example
-/products	GET	Fetch all products	{ "id": 1, "name": "Product A", "price": 100 }
-/orders	POST	Create a new order	{ "orderId": 123, "status": "Success" }
