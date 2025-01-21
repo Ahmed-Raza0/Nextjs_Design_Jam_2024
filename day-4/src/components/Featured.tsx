@@ -3,7 +3,7 @@ import Image from "next/image";
 const Featured = () => {
   return (
     <div>
-      <div className="w-full max-w-[1440px] h-auto sm:mx-[20px] md:mx-[30px] lg:mx-[40px] mx-[48px]  mt-[48px] flex flex-col">
+      <div className="w-full max-w-[1440px] h-auto mx-auto    mt-[48px] flex flex-col">
         <h1 className="text-[15px] text-[#111111] font-medium">
           Featured
         </h1>

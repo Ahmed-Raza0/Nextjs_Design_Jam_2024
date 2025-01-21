@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router"; 
+import { useRouter } from "next/navigation";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { toast, ToastContainer } from "react-toastify";
 import { useCart } from "../context/CartContext";
+import { useParams } from "next/navigation";
 
 export interface Product {
   id: number;
@@ -24,8 +25,9 @@ export interface Product {
 
 async function fetchProductById(id: number): Promise<Product | null> {
   try {
-    const query = `*[_type == "product" && id == ${id}][0]`; 
-    const result = await client.fetch(query);
+    const query = `*[_type == "product" && id == ${id}][0]`;
+    const params = { id };
+    const result = await client.fetch(query, params);
     return result || null;
   } catch (error) {
     console.error("Error fetching product:", error);
@@ -38,30 +40,31 @@ export default function CardDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { addToCart } = useCart();
-  const router = useRouter(); 
-  const { id } = router.query;  
-
+  const router = useRouter();
+  const params = useParams();
+  const productId = params.id;
   useEffect(() => {
     async function loadProduct() {
-      if (id) {
-        try {
-          const data = await fetchProductById(Number(id));  
-          if (data) {
-            setProduct(data);
-          } else {
-            setError("Product not found.");
-          }
-        } catch (error) {
-          console.log(error);
-          setError("Failed to load product.");
-        } finally {
-          setLoading(false);
+      try {
+        const data = await fetchProductById(Number(productId));
+        if (data) {
+          setProduct(data);
+        } else {
+          setError("Product not found.");
         }
+      } catch (error) {
+        console.log(error);
+
+        setError("Failed to load product.");
+      } finally {
+        setLoading(false);
       }
     }
 
-    loadProduct();
-  }, [id]);  
+    if (productId) {
+      loadProduct();
+    }
+  }, [productId]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -71,6 +74,7 @@ export default function CardDetails() {
     if (product && product.inventory > 0) {
       const updatedProduct = { ...product, inventory: product.inventory - 1 };
       setProduct(updatedProduct);
+
       addToCart(product);
       toast.success("Product added to cart successfully!", {
         position: "top-center",
