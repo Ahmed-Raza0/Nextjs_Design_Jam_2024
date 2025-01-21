@@ -3,6 +3,7 @@ import "./globals.css";
 import TopHeader from "@/components/TopHeader";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { CartProvider } from "./Product/context/CartContext";
  
  
 export const metadata: Metadata = {
@@ -20,10 +21,12 @@ export default function RootLayout({
       <body
         className={` `}
       >
+        <CartProvider>
         <TopHeader/>
         <Header />
         {children}
         <Footer/>
+        </CartProvider>
       </body>
     </html>
   );

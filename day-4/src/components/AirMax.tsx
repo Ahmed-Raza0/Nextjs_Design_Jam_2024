@@ -1,6 +1,17 @@
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import imageUrlBuilder from "@sanity/image-url";
+interface Product {
+  id: string;
+  productName: string;
+  category: string;
+  price: number;
+  inventory: number;
+  colors: string[];
+  status: string;
+  image: string;
+  description: string;
+}
 
 const builder = imageUrlBuilder(client);
 function urlFor(source: string) {
@@ -33,13 +44,13 @@ export default async function Products() {
           />
         </div>
         <div className="w-full max-w-[1440px] h-auto flex flex-wrap gap-3 items-center justify-center px-4 sm:px-6 lg:px-10">
-          {productsToShow.map((product: any) => {
+          {productsToShow.map((product: Product) => {
             // Dynamically generate image URL for each product
             const imageUrl = product.image ? urlFor(product.image).width(431).height(431).url() : '';
 
             return (
               <div
-                key={product._id}
+                key={product.id}
                 className="w-[441.36px] h-[510.36px] flex flex-col mb-6 sm:mb-0"
               >
                 {/* Image */}

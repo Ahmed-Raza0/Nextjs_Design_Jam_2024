@@ -1,13 +1,22 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { FiHeart } from "react-icons/fi";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { useCart } from "../app/Product/context/CartContext";
+import CartModal from "../components/CartModal";
 
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const { cart } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleCartClick = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
     <div className="w-full h-[60px] flex flex-row items-center px-4 sm:px-6 md:px-8 lg:px-16 bg-white">
-      {/* Logo */}
       <div className="flex items-center justify-start">
         <Image
           src="/images/nike.svg"
@@ -18,7 +27,6 @@ const Header = () => {
         />
       </div>
 
-      {/* Navigation Links */}
       <div className="hidden sm:flex flex-grow justify-center gap-6 items-center">
         <h1 className="text-sm font-medium text-gray-800">New & Featured</h1>
         <h1 className="text-sm font-medium text-gray-800">Men</h1>
@@ -26,8 +34,7 @@ const Header = () => {
         <h1 className="text-sm font-medium text-gray-800">Kids</h1>
         <h1 className="text-sm font-medium text-gray-800">Sale</h1>
         <h1 className="text-sm font-medium text-gray-800">SNKRS</h1>
-        
-        {/* Image in between */}
+
         <Image
           src="/images/Frame.png"
           alt="Special Offer"
@@ -37,17 +44,26 @@ const Header = () => {
         />
       </div>
 
-      {/* Right-side Icon (Side Image) */}
-      <div className="flex items-center justify-end ml-auto">
-        <Image
-          src="/images/side.svg"
-          alt="Side Image"
-          width={84}
-          height={60}
-        />
+      <div className="flex items-center  justify-end ml-auto">
+        <div className="relative cursor-pointer mr-6 hover:text-indigo-200">
+          <FiHeart className="text-[28px]" />
+          <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white flex items-center justify-center translate-x-1 -translate-y-1">
+            0
+          </div>
+        </div>
+
+        <div
+          className="relative cursor-pointer hover:text-indigo-200"
+          onClick={handleCartClick}
+        >
+          <HiOutlineShoppingBag className="text-[28px]" />
+          <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white flex items-center justify-center translate-x-1 -translate-y-1">
+            {cart.length}
+          </div>
+        </div>
       </div>
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       
-      {/* Mobile Hamburger Menu */}
       <div className="sm:hidden flex items-center ml-auto">
         <button
           className="text-gray-800"
@@ -60,7 +76,12 @@ const Header = () => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
       </div>
@@ -69,7 +90,9 @@ const Header = () => {
       {isMenuOpen && (
         <div className="sm:hidden absolute top-[100px] left-0 w-full bg-white shadow-md z-10">
           <div className="flex flex-col items-center py-4">
-            <h1 className="text-sm font-medium text-gray-800 py-2">New & Featured</h1>
+            <h1 className="text-sm font-medium text-gray-800 py-2">
+              New & Featured
+            </h1>
             <h1 className="text-sm font-medium text-gray-800 py-2">Men</h1>
             <h1 className="text-sm font-medium text-gray-800 py-2">Women</h1>
             <h1 className="text-sm font-medium text-gray-800 py-2">Kids</h1>
