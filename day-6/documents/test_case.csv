@@ -1,0 +1,5 @@
+Test Case ID,Description,Steps,Expected Result,Actual Result,Status,Remarks
+TC001,Validate product listing ,Go to product page > check product display ,Products displayed correctly,Products displayed correctly,Passed,No issues found
+TC002,Check cart functionality,Add product to cart > Verify cart update,Cart updates with added product,Cart updates correctly ,Passed,No issues found
+TC003,Ensure responsiveness on mobile,Resize browser window > Check layout,Layout adjusts properly to screen size,Layout adjusts properly ,Passed,Responsive verified 
+TC004,Test performance (Lightouse),Run Lighthouse > check performance score ,Performance score >= 100/ 100,Performance score 100/100,Passed,Excellent performance 
