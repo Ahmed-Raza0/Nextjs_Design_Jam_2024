@@ -5,6 +5,7 @@ import { FiHeart } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useCart } from "../app/Product/context/CartContext";
 import CartModal from "../components/CartModal";
+import Link from "next/link";
 
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -28,7 +29,9 @@ const Header = () => {
       </div>
 
       <div className="hidden sm:flex flex-grow justify-center gap-6 items-center">
-        <h1 className="text-sm font-medium text-gray-800">New & Featured</h1>
+        <Link href="/Product/">
+          <h1 className="text-sm font-medium text-gray-800">New & Featured</h1>
+        </Link>
         <h1 className="text-sm font-medium text-gray-800">Men</h1>
         <h1 className="text-sm font-medium text-gray-800">Women</h1>
         <h1 className="text-sm font-medium text-gray-800">Kids</h1>
@@ -63,11 +66,12 @@ const Header = () => {
         </div>
       </div>
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      
+
       <div className="sm:hidden flex items-center ml-auto">
         <button
           className="text-gray-800"
           onClick={() => setMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu" // Added aria-label here
         >
           <svg
             className="w-6 h-6"

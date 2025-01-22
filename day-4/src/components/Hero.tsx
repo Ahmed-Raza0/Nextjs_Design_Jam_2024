@@ -1,30 +1,34 @@
 import Image from "next/image";
- 
 
 const Hero = () => {
   return (
     <div>
-       
       <div className="w-full h-auto flex flex-col items-center -top-1 justify-center px-4 sm:px-6 lg:px-10 xl:px-16">
         <h1 className="text-center text-[#111111] text-[15px] sm:text-[16px] md:text-[18px]">
           Hello Nike App
         </h1>
-        <div className="w-full max-w-[323px] sm:max-w-[400px] h-[24px] px-[11px] text-center">
-          <p className="text-[11px] sm:text-[12px] text-[#111111]">
+        <div className="w-full max-w-[323px] flex justify-center items-center sm:max-w-[400px] h-[24px] px-[11px] text-center">
+          <p className="text-[11px] sm:text-[12px] flex text-[#111111]">
             Download the app to access everything Nike.{" "}
-            <span className="text-[#111111] font-medium underline">
+            <span className="text-[#111111] hidden md:flex lg:flex xl:flex 2xl:flex font-medium underline">
               Get Your Great
             </span>
           </p>
         </div>
       </div>
-      <div className="w-full max-w-[1344px] mx-auto h-auto flex flex-col items-center justify-center ml-[48px] sm:ml-0">
-        <Image src="/images/hero.svg" alt="hero" width={1344} height={700} className="w-full max-w-[1344px] h-auto" />
+      <div className="w-full max-w-[1344px] mx-auto h-auto flex flex-col items-center justify-center ">
+        <Image
+          src="/images/hero.svg"
+          alt="hero"
+          width={1344}
+          height={700}
+          className="w-full max-w-[1344px] h-auto"
+        />
         <div className="w-full max-w-[1008px] flex flex-col items-center justify-center gap-2">
           <h1 className="text-center text-[15px] sm:text-[18px] md:text-[20px] font-medium text-[#111111]">
             First Look
           </h1>
-          <h1 className="text-center text-[56px] sm:text-[60px] md:text-[64px] font-medium text-[#111111]">
+          <h1 className="text-center text-[56px] sm:text-[40px] md:text-[48px] font-medium text-[#111111]">
             Nike Air Max Pulse
           </h1>
           <div className="w-full max-w-[1008px] flex items-center justify-center my-5 px-6 sm:px-8">

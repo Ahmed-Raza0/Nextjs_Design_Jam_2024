@@ -6,6 +6,7 @@ import { useCart } from "../Product/context/CartContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function CheckoutPage() {
@@ -27,7 +28,8 @@ export default function CheckoutPage() {
     <div
       className={`w-full h-full flex mt-[96px] justify-center ${inter.className}`}
     >
-      <div className="w-full max-w-[1100px] h-auto flex flex-col lg:flex-row mx-auto">
+      <div className="w-full max-w-[1100px] h-auto flex flex-col lg:flex-row mx-auto px-4 lg:px-8">
+        {/* Left Column: Cart Items */}
         <div className="w-full lg:w-[733.33px] h-auto flex flex-col">
           <div className="w-full lg:w-[717.33px] h-[62.89px] bg-[#F1F1F1] p-3">
             <h1
@@ -60,7 +62,7 @@ export default function CheckoutPage() {
               cart.map((item) => (
                 <div
                   key={item.id}
-                  className="w-full h-[218px] flex py-[24px] border-b border-t border-slate-300"
+                  className="w-full h-auto flex flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row py-[24px] border-b border-t border-slate-300"
                 >
                   <div className="w-[150px] h-[150px]">
                     <Image
@@ -74,7 +76,7 @@ export default function CheckoutPage() {
                       className="w-full h-full"
                     />
                   </div>
-                  <div className="w-[537.33px] flex flex-col justify-between gap-3">
+                  <div className="w-full md:w-[537.33px] flex flex-col justify-between gap-3">
                     <div>
                       <h1
                         className={`text-[15px] font-medium text-[#111111] ${inter.className}`}
@@ -87,9 +89,6 @@ export default function CheckoutPage() {
                         {item.description || "No description"}
                       </h1>
                       <div className="flex justify-between items-center">
-                        {/* <h1 className={`text-[15px] text-[#757575] ${inter.className}`}>
-                          Size: {item.size || "N/A"}
-                        </h1> */}
                         <h1
                           className={`text-[15px] text-[#757575] ${inter.className}`}
                         >
@@ -107,6 +106,7 @@ export default function CheckoutPage() {
           </div>
         </div>
 
+        {/* Right Column: Summary */}
         <div className="w-full lg:w-[350.67px] h-auto flex flex-col gap-5">
           <h1
             className={`text-[21px] font-medium text-[#111111] ${inter.className}`}
