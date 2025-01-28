@@ -1,8 +1,8 @@
 import { createClient } from '@sanity/client'
-import axios from 'axios'
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url'
 import path from 'path'
+
 
 // Load environment variables from .env.local
 const __filename = fileURLToPath(import.meta.url)
@@ -16,6 +16,8 @@ const client = createClient({
   token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-12-27'
 })
+
+
 
 async function deleteAllProducts() {
     try {
