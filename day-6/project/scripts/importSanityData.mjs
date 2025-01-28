@@ -4,8 +4,6 @@ import dotenv from 'dotenv'
 import { fileURLToPath } from 'url'
 import path from 'path'
 
-let productIdNumber = 1
-
 // Load environment variables from .env.local
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -18,7 +16,6 @@ const client = createClient({
   token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-12-27'
 })
-
 async function uploadImageToSanity(imageUrl) {
   try {
     console.log(`Uploading image: ${imageUrl}`)
@@ -33,54 +30,54 @@ async function uploadImageToSanity(imageUrl) {
     console.error('Failed to upload image:', imageUrl, error)
     return null
   }
-}
-
-async function importData() {
+}async function importData() {
   try {
-    console.log('Migrating data, please wait...');
-
-    // API endpoint containing car data
-    const response = await axios.get('https://template-03-api.vercel.app/api/products');
-    const products = response.data.data;
-    console.log("products ==>> ", products);
+    console.log('Fetching products from API...')
+    const response = await axios.get('https://67800beb0476123f76a9578a.mockapi.io/api/test1')
+    const products = response.data
+    console.log(`Fetched ${products.length} products`)
 
     for (const product of products) {
-      let imageRef = null;
+      console.log(`Processing product: ${product.title}`)
+
+
+      const productId = Number(product.id); 
+      const productPrice = Number(product.price); 
+
+      let imageRef = null
       if (product.image) {
-        imageRef = await uploadImageToSanity(product.image);
+        imageRef = await uploadImageToSanity(product.image)
       }
 
       const sanityProduct = {
         _type: 'product',
-        productName: product.productName,
-        category: product.category,
-        id: productIdNumber++,  // Ensure id is a number
-        price: product.price,
-        inventory: product.inventory,
-        colors: product.colors || [],  // Optional, as per your schema
-        status: product.status,
+        title: product.title,
         description: product.description,
-        image: imageRef
-          ? {
-              _type: 'image',
-              asset: {
-                _type: 'reference',
-                _ref: imageRef,
-              },
-            }
-          : undefined,
-      };
+        rating: product.rating?.rate || 0,
+        price: productPrice,
+        category: product.category,
+        inventory: productId * 2,
+        id: productId, // Now storing product.id as a number
+        brand: product.brand,
+        image: imageRef ? {
+          _type: 'image',
+          asset: {
+            _type: 'reference',
+            _ref: imageRef,
+          },
+        } : undefined,
+      }
 
-      console.log("Sanity Product being created:", sanityProduct); // Log the product data for debugging
-
-      await client.create(sanityProduct);
+      console.log('Uploading product to Sanity:', sanityProduct.name)
+      const result = await client.create(sanityProduct)
+      console.log(`Product uploaded successfully: ${result._id}`)
     }
-
-    console.log('Data migrated successfully!');
+    console.log('Data import completed successfully!')
   } catch (error) {
-    console.error('Error in migrating data:', error);
+    console.error('Error importing data:', error)
   }
 }
+importData()
 
-importData();
 
+ 
