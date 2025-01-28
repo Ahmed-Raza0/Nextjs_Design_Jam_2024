@@ -72,7 +72,6 @@ export default function Dashboard() {
         setProducts(productsData);
       } catch (error) {
         console.log(error);
-        
         setError("Failed to fetch data");
       } finally {
         setLoading(false);
@@ -88,8 +87,7 @@ export default function Dashboard() {
   ) => {
     try {
       const res = await client
-      
-        .patch(productId) 
+        .patch(productId)
         .set(updatedData)
         .commit();
 
@@ -108,9 +106,9 @@ export default function Dashboard() {
         colors: null,
         image: null,
       });
+      console.log(res);
     } catch (error) {
-        console.log(error);
-        
+      console.log(error);
       setError("Failed to update product");
     }
   };
@@ -127,10 +125,7 @@ export default function Dashboard() {
     });
   };
   const handleSignOut = () => {
-     
     document.cookie = "adminLoggedIn=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    
-    
     window.location.href = "/login";
   };
 
@@ -200,18 +195,18 @@ export default function Dashboard() {
 
             <h3 className="text-2xl font-semibold mb-3 text-gray-800">
               {editingProduct.id === product._id ? (
-                <label htmlFor="productName">Product Name 
-                <input
-                  type="text"
-                  value={editingProduct.productName || product.productName}
-                  onChange={(e) =>
-                    setEditingProduct({
-                      ...editingProduct,
-                      productName: e.target.value,
-                    })
-                  }
-                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
-                />
+                <label htmlFor="productName">Product Name
+                  <input
+                    type="text"
+                    value={editingProduct.productName || product.productName}
+                    onChange={(e) =>
+                      setEditingProduct({
+                        ...editingProduct,
+                        productName: e.target.value,
+                      })
+                    }
+                    className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
+                  />
                 </label>
               ) : (
                 product.productName
@@ -220,18 +215,18 @@ export default function Dashboard() {
 
             <p className="text-gray-600 mb-4">
               {editingProduct.id === product._id ? (
-                <label htmlFor="description">Description 
-                <textarea
-                  value={editingProduct.description || product.description}
-                  onChange={(e) =>
-                    setEditingProduct({
-                      ...editingProduct,
-                      description: e.target.value,
-                    })
-                  }
-                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
-                  rows={4}
-                />
+                <label htmlFor="description">Description
+                  <textarea
+                    value={editingProduct.description || product.description}
+                    onChange={(e) =>
+                      setEditingProduct({
+                        ...editingProduct,
+                        description: e.target.value,
+                      })
+                    }
+                    className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
+                    rows={4}
+                  />
                 </label>
               ) : (
                 product.description
@@ -241,17 +236,17 @@ export default function Dashboard() {
             <div className="text-lg font-semibold text-gray-800 mb-4">
               {editingProduct.id === product._id ? (
                 <label htmlFor="price">Price
-                <input
-                  type="number"
-                  value={editingProduct.price || product.price}
-                  onChange={(e) =>
-                    setEditingProduct({
-                      ...editingProduct,
-                      price: Number(e.target.value),
-                    })
-                  }
-                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
-                />
+                  <input
+                    type="number"
+                    value={editingProduct.price || product.price}
+                    onChange={(e) =>
+                      setEditingProduct({
+                        ...editingProduct,
+                        price: Number(e.target.value),
+                      })
+                    }
+                    className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
+                  />
                 </label>
               ) : (
                 `$${product.price}`
@@ -261,17 +256,17 @@ export default function Dashboard() {
             <div className="text-lg font-semibold text-gray-800 mb-4">
               {editingProduct.id === product._id ? (
                 <label htmlFor="inventory">Inventory
-                <input
-                  type="number"
-                  value={editingProduct.inventory || product.inventory}
-                  onChange={(e) =>
-                    setEditingProduct({
-                      ...editingProduct,
-                      inventory: Number(e.target.value),
-                    })
-                  }
-                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
-                />
+                  <input
+                    type="number"
+                    value={editingProduct.inventory || product.inventory}
+                    onChange={(e) =>
+                      setEditingProduct({
+                        ...editingProduct,
+                        inventory: Number(e.target.value),
+                      })
+                    }
+                    className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
+                  />
                 </label>
               ) : (
                 `${product.inventory}`
@@ -281,18 +276,18 @@ export default function Dashboard() {
             <div className="text-lg font-semibold text-gray-800 mb-4">
               {editingProduct.id === product._id ? (
                 <input
-                type="text"
-                value={editingProduct.colors?.join(", ") || product.colors.join(", ")}
-                onChange={(e) => {
-                  const newColors = e.target.value.split(",");
-                  setEditingProduct({
-                    ...editingProduct,
-                    colors: newColors,
-                  });
-                }}
-                placeholder="Enter colors" // Add this line
-                className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
-              />
+                  type="text"
+                  value={editingProduct.colors?.join(", ") || product.colors.join(", ")}
+                  onChange={(e) => {
+                    const newColors = e.target.value.split(",");
+                    setEditingProduct({
+                      ...editingProduct,
+                      colors: newColors,
+                    });
+                  }}
+                  placeholder="Enter colors"
+                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500"
+                />
               ) : (
                 `${product.colors.join(", ")}`
               )}
@@ -314,11 +309,11 @@ export default function Dashboard() {
                   {editingProduct.image && (
                     <div className="mt-4">
                       <Image
-                        src={editingProduct.image}
+                        src={urlFor(editingProduct.image).url()}
                         alt="New image preview"
                         width={200}
                         height={200}
-                        className="rounded-lg hidden"
+                        className="rounded-lg"
                       />
                     </div>
                   )}
@@ -329,7 +324,7 @@ export default function Dashboard() {
                   alt={product.productName}
                   width={200}
                   height={200}
-                  className="rounded-lg hidden"
+                  className="rounded-lg"
                 />
               )}
             </div>
